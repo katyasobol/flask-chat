@@ -44,10 +44,12 @@ def index():
 
 @app.route('/login', methods=('POST', 'GET'))
 def login():
+    username = None
     if request.method == 'POST':
         username = request.form.get('username')
         session['username'] = username
-    return redirect(url_for('index'))
+        return redirect(url_for('index', username=username))
+    return render_template('login.html', username=username)
 
 @app.route('/logout', methods=('POST', 'GET'))
 def logout():
